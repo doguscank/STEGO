@@ -6,7 +6,6 @@ import numpy as np
 import cv2
 from sklearn.model_selection import train_test_split
 from data_preparation import DataPreparer
-from data_split import DataSplitter
 import shutil
 from omegaconf import DictConfig, OmegaConf
 import hydra
