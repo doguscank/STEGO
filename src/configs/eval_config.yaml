@@ -1,11 +1,11 @@
-output_root: '../'
-pytorch_data_dir: '/datadrive/pytorch-data/'
-experiment_name: "cocostuff"
-res: 320
-batch_size: 8
-num_workers: 24
+output_root: '/content/drive/My Drive/STEGO_results/eval/'
+pytorch_data_dir: '/content/drive/My Drive/STEGO_dataset/'
+experiment_name: "sentinel2"
+res: 224
+batch_size: 1
+num_workers: 1
 run_picie: True
-run_crf: True
+run_crf: False # True
 run_prediction: True
 dark_mode: True
 use_ddp: False
