@@ -8,7 +8,7 @@ import seaborn as sns
 from omegaconf import DictConfig, OmegaConf
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import TensorBoardLogger
-from pytorch_lightning.utilities.seed import seed_everything
+from lightning_lite.utilities.seed import seed_everything
 from sklearn.metrics import auc, precision_recall_curve, average_precision_score
 from torch.utils.tensorboard.summary import hparams
 from torchvision.transforms import ToTensor

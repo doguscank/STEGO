@@ -8,7 +8,7 @@ import torch.multiprocessing
 import torch.multiprocessing
 import torch.nn as nn
 from omegaconf import DictConfig, OmegaConf
-from pytorch_lightning.utilities.seed import seed_everything
+from lightning_lite.utilities.seed import seed_everything
 from tqdm import tqdm
 
 

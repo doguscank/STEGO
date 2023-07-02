@@ -4,7 +4,7 @@ from data import ContrastiveSegDataset
 import hydra
 import torch
 from omegaconf import DictConfig, OmegaConf
-from pytorch_lightning.utilities.seed import seed_everything
+from lightning_lite.utilities.seed import seed_everything
 from torch.utils.data import DataLoader
 from torchvision.transforms.functional import five_crop, _get_image_size, crop
 from tqdm import tqdm
