@@ -104,7 +104,7 @@ class DatasetSplitter:
                 f.write(n)
 
 
-@hydra.main(config_path="config", config_name="config.yaml")
+@hydra.main(config_path="configs", config_name="train_config.yaml")
 def my_app(cfg: DictConfig) -> None:
     print(OmegaConf.to_yaml(cfg))
 
