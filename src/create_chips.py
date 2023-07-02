@@ -107,8 +107,8 @@ class DatasetSplitter:
 def my_app(cfg: DictConfig) -> None:
     print(OmegaConf.to_yaml(cfg))
 
-    input_path = hydra.utils.to_absolute_path(cfg.input_path)
-    output_path = hydra.utils.to_absolute_path(cfg.output_path)
+    input_path = hydra.utils.to_absolute_path(cfg.pytorch_data_dir)
+    output_path = hydra.utils.to_absolute_path(cfg.output_root)
     size = cfg.size
 
     # Image Processing
