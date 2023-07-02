@@ -146,6 +146,10 @@ You can now train on your custom dataset using:
 python train_segmentation.py
 ```
 
+## Used data set
+
+A custom dataset is used to train/evaluate the model. Segments with prefix 0, 4, and 8 are used for validation. Other data is used for training.
+
 ## Understanding STEGO
 
 ### Unsupervised semantic segmentation

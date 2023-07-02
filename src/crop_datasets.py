@@ -58,7 +58,6 @@ def _random_crops(img, size, seed, n):
 
 
 class RandomCropComputer(Dataset):
-
     def _get_size(self, img):
         if len(img.shape) == 3:
             return [int(img.shape[1] * self.crop_ratio), int(img.shape[2] * self.crop_ratio)]
