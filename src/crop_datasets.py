@@ -60,9 +60,15 @@ def _random_crops(img, size, seed, n):
 class RandomCropComputer(Dataset):
     def _get_size(self, img):
         if len(img.shape) == 3:
-            return [int(img.shape[1] * self.crop_ratio), int(img.shape[2] * self.crop_ratio)]
+            return [
+                int(img.shape[1] * self.crop_ratio),
+                int(img.shape[2] * self.crop_ratio),
+            ]
         elif len(img.shape) == 2:
-            return [int(img.shape[0] * self.crop_ratio), int(img.shape[1] * self.crop_ratio)]
+            return [
+                int(img.shape[0] * self.crop_ratio),
+                int(img.shape[1] * self.crop_ratio),
+            ]
         else:
             raise ValueError("Bad image shape {}".format(img.shape))
 
@@ -76,7 +82,10 @@ class RandomCropComputer(Dataset):
         self.pytorch_data_dir = cfg.pytorch_data_dir
         self.crop_ratio = crop_ratio
         self.save_dir = join(
-            cfg.pytorch_data_dir, "cropped", "{}_{}_crop_{}".format(dataset_name, crop_type, crop_ratio))
+            cfg.pytorch_data_dir,
+            "cropped",
+            "{}_{}_crop_{}".format(dataset_name, crop_type, crop_ratio),
+        )
         self.img_set = img_set
         self.dataset_name = dataset_name
         self.cfg = cfg
@@ -91,7 +100,7 @@ class RandomCropComputer(Dataset):
         elif crop_type == "five":
             cropper = lambda i, x: self.five_crops(i, x)
         else:
-            raise ValueError('Unknown crop type {}'.format(crop_type))
+            raise ValueError("Unknown crop type {}".format(crop_type))
 
         self.dataset = ContrastiveSegDataset(
             cfg.pytorch_data_dir,
@@ -107,19 +116,37 @@ class RandomCropComputer(Dataset):
             mask=False,
             aug_geometric_transform=None,
             aug_photometric_transform=None,
-            extra_transform=cropper
+            extra_transform=cropper,
         )
 
     def __getitem__(self, item):
         batch = self.dataset[item]
-        imgs = batch['img']
-        labels = batch['label']
+        imgs = batch["img"]
+        labels = batch["label"]
         for crop_num, (img, label) in enumerate(zip(imgs, labels)):
             img_num = item * 5 + crop_num
-            img_arr = img.mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to('cpu', torch.uint8).numpy()
-            label_arr = (label + 1).unsqueeze(0).permute(1, 2, 0).to('cpu', torch.uint8).numpy().squeeze(-1)
-            Image.fromarray(img_arr).save(join(self.img_dir, "{}.jpg".format(img_num)), 'JPEG')
-            Image.fromarray(label_arr).save(join(self.label_dir, "{}.png".format(img_num)), 'PNG')
+            img_arr = (
+                img.mul(255)
+                .add_(0.5)
+                .clamp_(0, 255)
+                .permute(1, 2, 0)
+                .to("cpu", torch.uint8)
+                .numpy()
+            )
+            label_arr = (
+                (label + 1)
+                .unsqueeze(0)
+                .permute(1, 2, 0)
+                .to("cpu", torch.uint8)
+                .numpy()
+                .squeeze(-1)
+            )
+            Image.fromarray(img_arr).save(
+                join(self.img_dir, "{}.jpg".format(img_num)), "JPEG"
+            )
+            Image.fromarray(label_arr).save(
+                join(self.label_dir, "{}.png".format(img_num)), "PNG"
+            )
         return True
 
     def __len__(self):
@@ -139,14 +166,22 @@ def my_app(cfg: DictConfig) -> None:
     dataset_names = ["directory"]
     img_sets = ["train", "val"]
     crop_types = ["five"]
-    crop_ratios = [.5]
+    crop_ratios = [0.5]
 
     for crop_ratio in crop_ratios:
         for crop_type in crop_types:
             for dataset_name in dataset_names:
                 for img_set in img_sets:
-                    dataset = RandomCropComputer(cfg, dataset_name, img_set, crop_type, crop_ratio)
-                    loader = DataLoader(dataset, 1, shuffle=False, num_workers=cfg.num_workers, collate_fn=lambda l: l)
+                    dataset = RandomCropComputer(
+                        cfg, dataset_name, img_set, crop_type, crop_ratio
+                    )
+                    loader = DataLoader(
+                        dataset,
+                        1,
+                        shuffle=False,
+                        num_workers=cfg.num_workers,
+                        collate_fn=lambda l: l,
+                    )
                     for _ in tqdm(loader):
                         pass
 

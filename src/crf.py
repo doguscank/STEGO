@@ -24,8 +24,9 @@ def dense_crf(image_tensor: torch.FloatTensor, output_logits: torch.FloatTensor)
     H, W = image.shape[:2]
     image = np.ascontiguousarray(image)
 
-    output_logits = F.interpolate(output_logits.unsqueeze(0), size=(H, W), mode="bilinear",
-                                  align_corners=False).squeeze()
+    output_logits = F.interpolate(
+        output_logits.unsqueeze(0), size=(H, W), mode="bilinear", align_corners=False
+    ).squeeze()
     output_probs = F.softmax(output_logits, dim=0).cpu().numpy()
 
     c = output_probs.shape[0]
