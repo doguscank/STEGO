@@ -5,7 +5,7 @@ import os
 import wget
 
 
-@hydra.main(config_path="configs", config_name="eval_config.yml")
+@hydra.main(config_path="configs", config_name="eval_config.yaml")
 def my_app(cfg: DictConfig) -> None:
     pytorch_data_dir = cfg.pytorch_data_dir
     dataset_names = [

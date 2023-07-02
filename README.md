@@ -46,7 +46,7 @@ cd STEGO
 Please visit the [Anaconda install page](https://docs.anaconda.com/anaconda/install/index.html) if you do not already have conda installed
 
 ```shell script
-conda env create -f environment.yml
+conda env create -f environment.yaml
 conda activate stego
 ```
 
@@ -83,7 +83,7 @@ To evaluate our pretrained models please run the following in `STEGO/src`:
 ```shell script
 python eval_segmentation.py
 ```
-One can change the evaluation parameters and model by editing [`STEGO/src/configs/eval_config.yml`](src/configs/eval_config.yml)
+One can change the evaluation parameters and model by editing [`STEGO/src/configs/eval_config.yaml`](src/configs/eval_config.yaml)
 
 ## Training
 
@@ -98,7 +98,7 @@ Then you can run the following in `STEGO/src`:
 ```shell script
 python train_segmentation.py
 ```
-Hyperparameters can be adjusted in [`STEGO/src/configs/train_config.yml`](src/configs/train_config.yml)
+Hyperparameters can be adjusted in [`STEGO/src/configs/train_config.yaml`](src/configs/train_config.yaml)
 
 To monitor training with tensorboard run the following from `STEGO` directory:
 
@@ -128,7 +128,7 @@ dataset_name
         └── unique_img_name_4.png
 ```
 
-Next in [`STEGO/src/configs/train_config.yml`](src/configs/train_config.yml) set the following parameters:
+Next in [`STEGO/src/configs/train_config.yaml`](src/configs/train_config.yaml) set the following parameters:
 
 ```yaml
 dataset_name: "directory"
